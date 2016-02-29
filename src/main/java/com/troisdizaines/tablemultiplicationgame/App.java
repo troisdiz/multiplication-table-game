@@ -2,6 +2,7 @@ package com.troisdizaines.tablemultiplicationgame;
 
 import com.troisdizaines.tablemultiplicationgame.scores.QuestionLog;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +28,16 @@ public class App {
 
     public void play() {
 
-        String questionCountStr = console.promptAndGetLine("Combien de questions ? (10)\n");
+        String introductionMessage =
+                "Bienvenue dans le jeu des tables de multiplication !\n"
+                + "À vous de jouer !\n\n";
+
+        console.printf(introductionMessage);
+
+        String nameQuestionPrompt = "Quel est on nom ?\n";
+        String playerName = console.promptAndGetLine(nameQuestionPrompt);
+
+        String questionCountStr = console.promptAndGetLine("À combien de questions veux-tu répondre ? (10)\n");
         int questionCount = DEFAULT_QUESTION_COUNT;
         try {
             String trimedQuestionCountStr = questionCountStr.trim();
@@ -36,10 +46,16 @@ public class App {
             }
         } catch (NumberFormatException e) {
             console.printf(
-                    "Je ne comprends pas ta réponse (%s) alors je vais poser %d questions\n\n",
+                    "%s, Je ne comprends pas ta réponse (%s) alors je vais te poser %d questions\n\n",
+                    playerName,
                     questionCountStr,
                     DEFAULT_QUESTION_COUNT);
         }
+
+        String readyMessage = "Prêt ? Appuie sur Entrée pour commencer !\n";
+        console.promptAndGetLine(readyMessage);
+
+        LocalDateTime startDateTime = LocalDateTime.now();
 
         List<QuestionLog> log = new ArrayList<>(questionCount);
 
@@ -83,8 +99,8 @@ public class App {
 
         double totalDurationSec = totalTime / 1000000000d;
 
-        String conclusion = "Tu as donné %d bonnes réponses (sur %d questions) en %2.2f secondes\n";
-        console.promptAndGetLine(conclusion, goodAnswers, questionCount, totalDurationSec);
+        String conclusion = "%s, tu as donné %d bonnes réponses (sur %d questions) en %2.2f secondes\n";
+        console.promptAndGetLine(conclusion, playerName, goodAnswers, questionCount, totalDurationSec);
     }
 
     private int randInt(int min, int max) {
