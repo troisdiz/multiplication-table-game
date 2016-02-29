@@ -1,5 +1,7 @@
 package com.troisdizaines.tablemultiplicationgame;
 
+import com.troisdizaines.tablemultiplicationgame.scores.QuestionLog;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,7 +41,7 @@ public class App {
                     DEFAULT_QUESTION_COUNT);
         }
 
-        List<MulQuestion> log = new ArrayList<>(questionCount);
+        List<QuestionLog> log = new ArrayList<>(questionCount);
 
         for (int i = 0; i < questionCount; i++) {
 
@@ -73,11 +75,11 @@ public class App {
 
             console.printf(displayResultOK + "\n\n");
 
-            log.add(new MulQuestion(n1, n2, answer, resultOK, duration));
+            log.add(new QuestionLog(n1, n2, answer, resultOK, duration));
         }
 
-        long goodAnswers = log.stream().filter(MulQuestion::isResultOK).count();
-        long totalTime = log.stream().mapToLong(MulQuestion::getTime).sum();
+        long goodAnswers = log.stream().filter(QuestionLog::isResultOK).count();
+        long totalTime = log.stream().mapToLong(QuestionLog::getTime).sum();
 
         double totalDurationSec = totalTime / 1000000000d;
 

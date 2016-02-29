@@ -1,17 +1,17 @@
-package com.troisdizaines.tablemultiplicationgame;
+package com.troisdizaines.tablemultiplicationgame.scores;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class MulQuestion {
+public class QuestionLog {
     private int int1;
     private int int2;
     private String answer;
     private boolean resultOK;
     private long time;
 
-    public MulQuestion(int int1, int int2, String answer, boolean resultOK, long time) {
+    public QuestionLog(int int1, int int2, String answer, boolean resultOK, long time) {
         this.int1     = int1;
         this.int2     = int2;
         this.answer   = answer;
